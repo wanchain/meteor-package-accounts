@@ -1,3 +1,7 @@
+# Usage in Meteor Project As a Local Package
+1. Create a new folder named packages in the meteor project Directory.
+2. Down load this package in the package folder and rename the package folder name wanchain_accounts.
+
 # Ethereum accounts
 
 Provides you with an `EthAccounts` collection, where balances are automatically updated.
