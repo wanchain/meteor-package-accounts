@@ -1,12 +1,12 @@
 /**
 
-@module Ethereum:accounts
+@module wanchain:accounts
 */
 
 
 
 /**
-The accounts collection, with some ethereum additions.
+The accounts collection, with some cranelv additions.
 
 @class EthAccounts
 @constructor
@@ -20,6 +20,15 @@ if(typeof PersistentMinimongo !== 'undefined')
     new PersistentMinimongo(EthAccounts._collection);
 
 
+/**
+ Updates the accounts balances, by watching for new blocks and checking the balance.
+
+ @method getWaddress
+ */
+EthAccounts.getWaddress = function(address){
+    var _this = this;
+    return web3.wan.getWanAddress(address);
+};
 
 /**
 Updates the accounts balances, by watching for new blocks and checking the balance.
@@ -125,14 +134,16 @@ EthAccounts._addAccounts = function(){
                             balance = balance.toFixed();
                         }
 
+
                         web3.eth.getCoinbase(function(e, coinbase){
                             var doc = EthAccounts.findAll({
                                 address: address,
                             }).fetch()[0];
-
+                            var wAddress = EthAccounts.getWaddress();
                             var insert = {
                                 type: 'account',
                                 address: address,
+                                waddress: wAddress,
                                 balance: balance,
                                 name: (address === coinbase) ? 'Main account (Etherbase)' : 'Account '+ accountsCount
                             };

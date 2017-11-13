@@ -1,14 +1,15 @@
 Package.describe({
-  name: 'ethereum:accounts',
+  name: 'wanchain:accounts',
   summary: 'Provides and updates the ethereum accounts in the Accounts collection',
   version: '0.4.0',
-  git: 'http://github.com/ethereum/meteor-package-accounts'
+  git: 'http://github.com/wanchain/meteor-package-accounts'
 });
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0');
   api.use('underscore', ['client', 'server']);
   api.use('mongo', ['client', 'server']);
+//  api.use('wanchain_util',['client','server']);
 
   api.use('frozeman:persistent-minimongo@0.1.8', 'client');
   api.use('ethereum:web3@0.15.1', ['client', 'server']);
@@ -20,7 +21,7 @@ Package.onUse(function(api) {
 
 // Package.onTest(function(api) {
 //   api.use('tinytest');
-//   api.use('ethereum:accounts');
+//   api.use('cranelv:accounts');
 //   api.addFiles('accounts-tests.js');
 // });
 
