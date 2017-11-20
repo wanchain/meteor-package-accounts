@@ -139,7 +139,7 @@ EthAccounts._addAccounts = function(){
                             var doc = EthAccounts.findAll({
                                 address: address,
                             }).fetch()[0];
-                            var wAddress = EthAccounts.getWaddress();
+                            var wAddress = EthAccounts.getWaddress(address);
                             var insert = {
                                 type: 'account',
                                 address: address,
@@ -155,7 +155,14 @@ EthAccounts._addAccounts = function(){
                             } else {
                                 EthAccounts.insert(insert);
                             }
-
+                            mist.requireAccountName(address,function(e, accounts) {
+                                if(accounts.length > 0)
+                                {
+                                    EthAccounts.update({address: accounts[0].address}, {
+                                        $set: {name: accounts[0].name}
+                                    });
+                                }
+                            });
                             if(address !== coinbase)
                                 accountsCount++;
                         });
