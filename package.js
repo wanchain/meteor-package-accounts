@@ -21,7 +21,7 @@ Package.onUse(function(api) {
 
 // Package.onTest(function(api) {
 //   api.use('tinytest');
-//   api.use('cranelv:accounts');
+//   api.use('wanchain:accounts');
 //   api.addFiles('accounts-tests.js');
 // });
 

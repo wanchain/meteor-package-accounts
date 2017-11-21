@@ -22,14 +22,7 @@ if(typeof PersistentMinimongo !== 'undefined')
 
 /**
  Updates the accounts balances, by watching for new blocks and checking the balance.
-
- @method getWaddress
- */
-EthAccounts.getWaddress = function(address){
-    var _this = this;
-    return web3.wan.getWanAddress(address);
-};
-
+ 
 /**
 Updates the accounts balances, by watching for new blocks and checking the balance.
 
@@ -139,30 +132,35 @@ EthAccounts._addAccounts = function(){
                             var doc = EthAccounts.findAll({
                                 address: address,
                             }).fetch()[0];
-                            var wAddress = EthAccounts.getWaddress(address);
-                            var insert = {
-                                type: 'account',
-                                address: address,
-                                waddress: wAddress,
-                                balance: balance,
-                                name: (address === coinbase) ? 'Main account (Etherbase)' : 'Account '+ accountsCount
-                            };
+                            web3.wan.getWanAddress(address,function (e, wAddress) {
+                                if(!e) {
+                                    var insert = {
+                                        type: 'account',
+                                        address: address,
+                                        waddress: wAddress,
+                                        balance: balance,
+                                        name: (address === coinbase) ? 'Main account (Etherbase)' : 'Account '+ accountsCount
+                                    };
 
-                            if(doc) {
-                                EthAccounts.updateAll(doc._id, {
-                                    $set: insert
-                                });
-                            } else {
-                                EthAccounts.insert(insert);
-                            }
-                            mist.requireAccountName(address,function(e, accounts) {
-                                if(accounts.length > 0)
-                                {
-                                    EthAccounts.update({address: accounts[0].address}, {
-                                        $set: {name: accounts[0].name}
+                                    if(doc) {
+                                        EthAccounts.updateAll(doc._id, {
+                                            $set: insert
+                                        });
+                                    } else {
+                                        EthAccounts.insert(insert);
+                                    }
+                                    mist.requireAccountName(address,function(e, accounts) {
+                                        if(accounts.length > 0)
+                                        {
+                                            EthAccounts.update({address: accounts[0].address}, {
+                                                $set: {name: accounts[0].name}
+                                            });
+                                        }
                                     });
                                 }
+
                             });
+
                             if(address !== coinbase)
                                 accountsCount++;
                         });
