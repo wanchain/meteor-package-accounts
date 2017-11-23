@@ -22,7 +22,7 @@ if(typeof PersistentMinimongo !== 'undefined')
 
 /**
  Updates the accounts balances, by watching for new blocks and checking the balance.
- 
+
 /**
 Updates the accounts balances, by watching for new blocks and checking the balance.
 
