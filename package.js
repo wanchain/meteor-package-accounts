@@ -1,7 +1,7 @@
 Package.describe({
   name: 'wanchain:accounts',
   summary: 'Provides and updates the ethereum accounts in the Accounts collection',
-  version: '0.5.0',
+  version: '0.5.1',
   git: 'http://github.com/wanchain/meteor-package-accounts'
 });
 
