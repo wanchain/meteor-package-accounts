@@ -139,7 +139,7 @@ EthAccounts._addAccounts = function(){
                                         address: address,
                                         waddress: wAddress,
                                         balance: balance,
-                                        name: (address === coinbase) ? 'Main account (Etherbase)' : 'Account '+ accountsCount
+                                        name: (address === coinbase) ? 'Main account (wanchain)' : 'Account '+ accountsCount
                                     };
 
                                     if(doc) {
