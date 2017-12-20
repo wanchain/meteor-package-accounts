@@ -129,11 +129,11 @@ EthAccounts._addAccounts = function(){
 
 
                         web3.eth.getCoinbase(function(e, coinbase){
-                            var doc = EthAccounts.findAll({
-                                address: address,
-                            }).fetch()[0];
                             web3.wan.getWanAddress(address,function (e, wAddress) {
                                 if(!e) {
+                                    var doc = EthAccounts.findAll({
+                                        address: address,
+                                    }).fetch()[0];
                                     var insert = {
                                         type: 'account',
                                         address: address,
@@ -144,7 +144,7 @@ EthAccounts._addAccounts = function(){
 
                                     if(doc) {
                                         EthAccounts.updateAll(doc._id, {
-                                            $set: insert
+                                            $set: {waddress: wAddress,balance: balance}
                                         });
                                     } else {
                                         EthAccounts.insert(insert);
